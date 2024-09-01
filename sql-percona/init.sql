@@ -1,0 +1,11 @@
+CREATE DATABASE IF NOT EXISTS testdb;
+
+USE testdb;
+
+CREATE TABLE IF NOT EXISTS accounts (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(50),
+    balance DECIMAL(10, 2) NOT NULL
+) ENGINE=InnoDB;
+
+INSERT IGNORE INTO accounts (id, name, balance) VALUES (1, 'John Doe', 100.00);

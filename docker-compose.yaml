@@ -1,0 +1,32 @@
+version: "3.7"
+services:
+  percona:
+    image: percona/percona-server:8.4.0-aarch64
+    container_name: percona-isolation-test
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdb
+      MYSQL_USER: testuser
+      MYSQL_PASSWORD: testpassword
+    ports:
+      - "3306:3306"
+    volumes:
+      - percona_data-isolation-test:/var/lib/mysql
+      - ./sql-percona/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  postgres:
+    image: postgres:latest
+    container_name: postgres-isolation-test
+    environment:
+      POSTGRES_DB: testdb
+      POSTGRES_USER: testuser
+      POSTGRES_PASSWORD: testpassword
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data-isolation-test:/var/lib/postgresql/data
+      - ./sql-pg/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  percona_data-isolation-test:
+  postgres_data-isolation-test:
